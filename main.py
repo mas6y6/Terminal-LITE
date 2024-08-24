@@ -1,8 +1,7 @@
 from getkey import getkey
-import time, readline, json, os, traceback
+import readline, json, os, traceback
 
 history = []
-#de
 
 try:
     os.mkdir("TL")
@@ -10,7 +9,7 @@ except:
     pass
 
 try:
-    os.mkdir("TL")
+    os.mkdir("TL/temp")
 except:
     pass
 
@@ -31,7 +30,24 @@ except Exception as f:
         + traceback.format_exc()
         + " \033[0m"
     )
+    exit(1)
 
+commands = []
+if not os.path.exists("./TL/temp/environment"):
+    try:
+        c = []
+        for i in envpath["variables"]["path"]:
+            os.listdir()
+        json.dumps(c,open("./TL/temp/environment"))
+    except Exception as e:
+        print(
+            "\033[91,1m[FATUL]:\033[91m Terminal Lite failed to initialize during environment creation. \n"
+            + traceback.format_exc()
+            + " \033[0m"
+        )
+        exit(1)
+else:
+    pass
 
 def saveenvpath():
     json.dump(envpath, open("./TL/envpath", "r+"), indent=4)
@@ -48,17 +64,21 @@ def _in(prompt="dwda"):
 
             return command
         except KeyboardInterrupt:
-            print("\nKeyboardInterrupt detected. Exiting...")
             break
         except EOFError:
-            print("\nEOFError detected. Exiting...")
             break
 
 
-def _run():
-    pass
-
+def _run(command):
+    com = command.split(" ")
+    if com[0] == "exit":
+        print("Closing Terminal Lite...")
+        exit()
+    elif com[0] == "clean":
+        print("\033c")
+    else:
+        pass
 
 if __name__ == "__main__":
     while True:
-        _run(_in(f"TL {path} :"))
+        _run(_in(f"TL {path}: "))
