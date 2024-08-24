@@ -2,6 +2,7 @@ from getkey import getkey
 import time, readline, json, os, traceback
 
 history = []
+#de
 
 try:
     os.mkdir("TL")
