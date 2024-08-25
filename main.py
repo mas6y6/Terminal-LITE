@@ -26,7 +26,7 @@ try:
     path = envpath["variables"]["startpath"]
 except Exception as f:
     print(
-        "\033[91,1m[FATUL]:\033[91m Terminal Lite failed to initialize during environment variables check. \n"
+        "\033[1m\033[91m[FATUL]: Terminal Lite failed to initialize during environment variables check. \n\033[0m\033[91m"
         + traceback.format_exc()
         + " \033[0m"
     )
@@ -37,11 +37,15 @@ if not os.path.exists("./TL/temp/environment"):
     try:
         c = []
         for i in envpath["variables"]["path"]:
-            os.listdir()
-        json.dumps(c,open("./TL/temp/environment"))
+            for i, i2, i3 in os.walk(i):
+                print("__")
+                print(i)
+                print(i2)
+                print(i3)
+        json.dumps(c,open("./TL/temp/environment","w"))
     except Exception as e:
         print(
-            "\033[91,1m[FATUL]:\033[91m Terminal Lite failed to initialize during environment creation. \n"
+            "\033[1m\033[91m[FATUL]:\033[91m Terminal Lite failed to initialize during environment creation. \n\033[0m\033[91m"
             + traceback.format_exc()
             + " \033[0m"
         )
@@ -71,14 +75,16 @@ def _in(prompt="dwda"):
 
 def _run(command):
     com = command.split(" ")
-    if com[0] == "exit":
+    if com[0] == "":
+        pass
+    elif com[0] == "exit":
         print("Closing Terminal Lite...")
         exit()
     elif com[0] == "clean":
         print("\033c")
     else:
-        pass
+        print("\033[91m[ERROR]: Command not found \n\033[0m")
 
 if __name__ == "__main__":
     while True:
-        _run(_in(f"TL {path}: "))
+        _run(_in(f"\033[94m@ \033[0m\033[1m\033[92m{path} : \033[0m"))
